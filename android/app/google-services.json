@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "455492802356",
+    "project_id": "ezsave-fb14f",
+    "storage_bucket": "ezsave-fb14f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455492802356:android:51e58119a3bf52b61a3761",
+        "android_client_info": {
+          "package_name": "com.digitalsauce.ezsave"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "455492802356-1tn9j84048h2692tjb840vqjlkg61h4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2gvwYdsb9wbr6oznT2pKQMfVANtRMg3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "455492802356-1tn9j84048h2692tjb840vqjlkg61h4p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "455492802356-e1aeig99pg7leooi86r2oaioacsh42o8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digitalsauce.ezsave"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,8 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// ✅ Create these files in Step 2
+import 'package:ez_save/views/views/onboarding/splash_screen.dart';
+import 'package:ez_save/views/views/onboarding/onboarding_screen.dart';
+
 // Global navigator key for context-independent navigation
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'AppNavigator');
+final GlobalKey<NavigatorState> navigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'AppNavigator');
 
 /// Helper function to extract arguments from GoRouterState
 T? getArg<T>(GoRouterState state, String key, [T? defaultValue]) {
@@ -24,14 +29,45 @@ void initializeNavigation() {
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: navigatorKey,
-  initialLocation: FirebaseAuth.instance.currentUser != null ? AppPaths.home.path : AppPaths.welcome.path,
-  redirect: AuthGuard.redirect,
-  routes: [
-    GoRouteExtension.createRoute(path: AppPaths.home, name: AppRouteNames.home, widgetBuilder: (state) => const HomeView()),
 
-    GoRouteExtension.createRoute(path: AppPaths.auth, name: AppRouteNames.authentication, widgetBuilder: (state) => const AuthenticationScreen()),
+  // ✅ Splash is "/" (welcome)
+  initialLocation: FirebaseAuth.instance.currentUser != null
+      ? AppPaths.home.path
+      : AppPaths.welcome.path,
+
+  redirect: AuthGuard.redirect,
+
+  routes: [
+    // ✅ Splash ("/")
+    GoRouteExtension.createRoute(
+      path: AppPaths.welcome,
+      name: AppRouteNames.welcome,
+      widgetBuilder: (_) => const SplashScreen(),
+      transitionDirection: TransitionDirection.horizontal, // keep existing enum
+    ),
+
+    // ✅ Onboarding
+    GoRouteExtension.createRoute(
+      path: AppPaths.onboarding,
+      name: AppRouteNames.onboarding,
+      widgetBuilder: (_) => const OnboardingScreen(),
+    ),
+
+    // ✅ Auth
+    GoRouteExtension.createRoute(
+      path: AppPaths.auth,
+      name: AppRouteNames.authentication,
+      widgetBuilder: (_) => const AuthenticationScreen(),
+    ),
+
+    // ✅ Home
+    GoRouteExtension.createRoute(
+      path: AppPaths.home,
+      name: AppRouteNames.home,
+      widgetBuilder: (_) => const HomeView(),
+    ),
   ],
-  errorBuilder: (context, state) => PageNotFound(),
+  errorBuilder: (context, state) => const PageNotFound(),
 );
 
 extension GoRouteExtension on GoRoute {
@@ -55,25 +91,6 @@ extension GoRouteExtension on GoRoute {
       routes: routes,
     );
   }
-
-  // Add a method for nested routes with relative paths
-  static GoRoute createNestedRoute({
-    required String path, // Relative path like '/profile'
-    required String name,
-    required Widget Function(GoRouterState state) widgetBuilder,
-  }) {
-    return GoRoute(
-      path: path,
-      name: name,
-      pageBuilder: (context, state) => PageTransitions.buildTransitionPage(
-        child: widgetBuilder(state),
-        name: name,
-        pageKey: state.pageKey,
-        transitionDirection: state.transitionDirection,
-        transitionDurationInSeconds: state.transitionDurationInSeconds,
-      ),
-    );
-  }
 }
 
 class PageNotFound extends StatelessWidget {
@@ -88,11 +105,19 @@ class PageNotFound extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: 64, color: Colors.red),
             const SizedBox(height: 16),
-            Text('Page Not Found', style: Theme.of(context).textTheme.headlineSmall),
+            Text('Page Not Found',
+                style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 8),
-            Text('The page you are looking for does not exist.', style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+            Text(
+              'The page you are looking for does not exist.',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 16),
-            ElevatedButton(onPressed: () => context.go(AppPaths.home.path), child: const Text('Go Home')),
+            ElevatedButton(
+              onPressed: () => context.go(AppPaths.home.path),
+              child: const Text('Go Home'),
+            ),
           ],
         ),
       ),

@@ -28,16 +28,21 @@ class AppRouteNames {
 }
 
 /// Screen groups for auth management
+/// Screen groups for auth management
 class ScreenGroups {
   /// Screens accessible without authentication (when not logged in)
-  static const Set<String> publicScreens = {'/', '/auth', '/terms_of_use', '/privacy_policy'};
+  static const Set<String> publicScreens = {
+    '/',
+    '/onboarding',
+    '/auth',
+    '/terms_of_use',
+    '/privacy_policy',
+    '/choose_language',
+  };
 
-  /// Screens that require authentication (when logged in, users can access both public and these screens)
+  /// Screens that require authentication
   static const Set<String> protectedScreens = {'/home'};
 
-  /// Check if a screen requires authentication
   static bool isProtectedScreen(String path) => protectedScreens.contains(path);
-
-  /// Check if a screen is publicly accessible
   static bool isPublicScreen(String path) => publicScreens.contains(path);
 }
