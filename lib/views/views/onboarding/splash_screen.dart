@@ -32,13 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const _SplashLogo(),
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
             Text(
               'EZ Saves',
-              style: theme.textTheme.displaySmall?.copyWith(
+              style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
-                letterSpacing: 0.4,
-                color: const Color(0xFF1A1A1A),
+                letterSpacing: 0.3,
+                color: const Color(0xFF1C1C1C),
               ),
             ),
             const SizedBox(height: 10),
@@ -63,67 +63,33 @@ class _SplashLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 210,
-      width: 210,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 200,
-            width: 200,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF4F4F4),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.08),
-                  blurRadius: 26,
-                  offset: const Offset(0, 14),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(56),
-            ),
-            child: ClipPath(
-              clipper: _BookmarkClipper(),
-              child: Container(color: const Color(0xFFF4F4F4)),
-            ),
-          ),
-          CustomPaint(
-            size: const Size(140, 150),
-            painter: _BookmarkOutlinePainter(),
+    return Container(
+      height: 200,
+      width: 200,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF3F3F3),
+        borderRadius: BorderRadius.circular(48),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 30,
+            offset: const Offset(0, 18),
           ),
         ],
+      ),
+      child: Center(
+        child: CustomPaint(
+          size: const Size(140, 150),
+          painter: _BookmarkOutlinePainter(),
+        ),
       ),
     );
   }
 }
 
-class _BookmarkClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final width = size.width;
-    final height = size.height;
-
-    return Path()
-      ..moveTo(width * 0.18, 0)
-      ..lineTo(width * 0.82, 0)
-      ..quadraticBezierTo(width, 0, width, height * 0.18)
-      ..lineTo(width, height * 0.72)
-      ..quadraticBezierTo(width, height * 0.96, width * 0.72, height * 0.96)
-      ..lineTo(width * 0.5, height * 0.82)
-      ..lineTo(width * 0.28, height * 0.96)
-      ..quadraticBezierTo(0, height * 0.96, 0, height * 0.72)
-      ..lineTo(0, height * 0.18)
-      ..quadraticBezierTo(0, 0, width * 0.18, 0)
-      ..close();
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
 class _BookmarkOutlinePainter extends CustomPainter {
-  static const _outlineColor = Color(0xFF111111);
+  static const _outlineColor = Color(0xFFFFFFFF);
+  static const _shadowColor = Color(0x22000000);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -142,6 +108,7 @@ class _BookmarkOutlinePainter extends CustomPainter {
       ..quadraticBezierTo(0, 0, width * 0.2, 0)
       ..close();
 
+    canvas.drawShadow(path, _shadowColor, 8, false);
     final paint = Paint()
       ..color = _outlineColor
       ..style = PaintingStyle.stroke
