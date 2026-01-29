@@ -3,6 +3,8 @@ import 'package:ez_save/views/providers/auth_provider.dart';
 import 'package:ez_save/views/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ez_save/views/providers/auth_provider.dart';
+
 
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});

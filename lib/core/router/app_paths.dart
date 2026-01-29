@@ -1,21 +1,19 @@
 enum AppPaths {
+  splash('/splash'),
   welcome('/'),
   chooseLanguage('/choose_language'),
   termsOfUse('/terms_of_use'),
   privacyPolicy('/privacy_policy'),
   auth('/auth'),
   onboarding('/onboarding'),
-  home("/home");
+  home('/home');
 
   const AppPaths(this.path);
-
   final String path;
-
-  @override
-  String toString() => path;
 }
 
 class AppRouteNames {
+  static const String splash = 'splash';
   static const String welcome = 'welcome';
   static const String authentication = 'authentication';
   static const String onboarding = 'onboarding';
@@ -28,11 +26,11 @@ class AppRouteNames {
 }
 
 /// Screen groups for auth management
-/// Screen groups for auth management
 class ScreenGroups {
   /// Screens accessible without authentication (when not logged in)
   static const Set<String> publicScreens = {
     '/',
+    '/splash',
     '/onboarding',
     '/auth',
     '/terms_of_use',
